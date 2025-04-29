@@ -16,6 +16,8 @@ provider "aws" {
 resource "aws_instance" "ec2-data-integration-wattech" {
   ami = "ami-0e86e20dae9224db8"
   instance_type = "t2.micro"
+  key_name      = aws_key_pair.wattech_key.key_name
+  subnet_id     = aws_subnet.sub-az1-pub-wattech.id
 
   tags = {
     Name = "ec2-data-integration-wattech"
@@ -27,7 +29,21 @@ resource "aws_instance" "ec2-data-integration-wattech" {
     volume_type = "gp3"
   }
 
-  subnet_id = aws_subnet.sub-az1-pub-wattech.id
+  vpc_security_group_ids = [aws_security_group.permitir_ssh_http.id]
+}
+
+resource "aws_key_pair" "wattech_key" {
+  key_name   = "wattech-key"
+  public_key = file("${path.module}/wattech_key.pub")
+}
+
+resource "aws_eip" "wattech_eip" {
+  vpc = true
+}
+
+resource "aws_eip_association" "eip_assoc" {
+  instance_id   = aws_instance.ec2-data-integration-wattech.id
+  allocation_id = aws_eip.wattech_eip.id
 }
 
 #VPC
@@ -53,7 +69,7 @@ resource "aws_subnet" "sub-az1-pub-wattech" {
 #Bucket S3
 resource "aws_s3_bucket" "s3_wattech" {
   tags = {
-    Name = "wattech_bucket"
+    Name = "wattech_bucket2904"
   }
 
   force_destroy       = false
@@ -65,4 +81,66 @@ resource "aws_s3_bucket_public_access_block" "bucket_acessos" {
 
   block_public_acls   = false 
   block_public_policy = false
+}
+
+resource "aws_security_group" "permitir_ssh_http" {
+  name        = "permitir_ssh"
+  description = "Permite SSH e HTTP na instancia EC2"
+  vpc_id      = aws_vpc.vpc-wattech.id
+
+  ingress {
+    description = "SSH to EC2"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "HTTP to EC2"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "permitir_ssh_e_http"
+  }
+}
+
+# Internet Gateway
+resource "aws_internet_gateway" "igw_wattech" {
+  vpc_id = aws_vpc.vpc-wattech.id
+
+  tags = {
+    Name = "igw-wattech"
+  }
+}
+
+# Tabela de Rotas
+resource "aws_route_table" "rtb_public_wattech" {
+  vpc_id = aws_vpc.vpc-wattech.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw_wattech.id
+  }
+
+  tags = {
+    Name = "rtb-public-wattech"
+  }
+}
+
+# Associação da tabela de rotas à subnet pública
+resource "aws_route_table_association" "rta_pub" {
+  subnet_id      = aws_subnet.sub-az1-pub-wattech.id
+  route_table_id = aws_route_table.rtb_public_wattech.id
 }
