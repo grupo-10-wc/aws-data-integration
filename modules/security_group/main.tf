@@ -1,14 +1,14 @@
 resource "aws_security_group" "sg_data_integration_wc" {
-  name = var.name
+  name        = var.name
   description = var.description
-  vpc_id = var.vpc_id
+  vpc_id      = var.vpc_id
 
   dynamic "ingress" {
     for_each = var.ingress_rules
     content {
-      from_port = ingress.value.from_port
-      to_port = ingress.value.to_port
-      protocol = ingress.value.protocol
+      from_port   = ingress.value.from_port
+      to_port     = ingress.value.to_port
+      protocol    = ingress.value.protocol
       cidr_blocks = ingress.value.cidr_blocks
     }
   }

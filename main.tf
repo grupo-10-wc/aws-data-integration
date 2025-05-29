@@ -13,10 +13,10 @@ provider "aws" {
 }
 
 module "vpc" {
-  source     = "./modules/vpc"
-  cidr_block = var.vpc_cidr_block
+  source                   = "./modules/vpc"
+  cidr_block               = var.vpc_cidr_block
   public_subnet_cidr_block = var.public_subnet_cidr_block
-  tags       = var.vpc_tags
+  tags                     = var.vpc_tags
 }
 
 module "security_group" {
@@ -38,8 +38,20 @@ module "ec2" {
   security_group_id = module.security_group.security_group_id
 }
 
-module "s3" {
+module "s3_raw" {
   source      = "./modules/s3"
-  bucket_name = var.s3_bucket_name
-  tags        = var.s3_tags
+  bucket_name = var.s3_raw_bucket_name
+  tags        = var.s3_raw_tags
+}
+
+module "s3_trusted" {
+  source      = "./modules/s3"
+  bucket_name = var.s3_trusted_bucket_name
+  tags        = var.s3_trusted_tags
+}
+
+module "s3_client" {
+  source      = "./modules/s3"
+  bucket_name = var.s3_client_bucket_name
+  tags        = var.s3_client_tags
 }

@@ -44,15 +44,34 @@ variable "ec2_tags" {
   default      = {}
 }
 
-variable "s3_bucket_name" {
-  description = "Nome para o bucket S3"
+variable "s3_raw_bucket_name" {
+  description = "Nome para o raw bucket S3"
   type        = string
 }
 
-variable "s3_tags" {
-  description = "Mapeamento de tags para associar ao bucket S3"
+variable "s3_raw_tags" {
+  description = "Mapeamento de tags para associar ao raw bucket S3"
   type        = map(string)
-  default     = {}
+}
+
+variable "s3_trusted_bucket_name" {
+  description = "Nome do trusted bucket S3"
+  type        = string
+}
+
+variable "s3_trusted_tags" {
+  description = "Tags para o trusted bucket S3"
+  type        = map(string)
+}
+
+variable "s3_client_bucket_name" {
+  description = "Nome do bucket S3 client"
+  type        = string
+}
+
+variable "s3_client_tags" {
+  description = "Tags para o bucket S3 client"
+  type        = map(string)
 }
 
 variable "security_group_rules" {

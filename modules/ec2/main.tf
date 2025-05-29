@@ -1,10 +1,10 @@
 resource "aws_instance" "ec2_data_integration_wc" {
-    ami = var.ami
+    ami           = var.ami
     instance_type = var.instance_type
-    key_name = var.key_name
-    subnet_id = var.subnet_id
+    key_name      = var.key_name
+    subnet_id     = var.subnet_id
 
-    tags = var.tags
+    tags          = var.tags
 
     ebs_block_device {
       device_name = "/dev/sda1"

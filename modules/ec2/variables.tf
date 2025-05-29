@@ -20,7 +20,7 @@ variable "subnet_id" {
 
 variable "tags" {
   description = "Mapeamento de tags para associar a instância EC2"
-  type = map(string)
+  type        = map(string)
 }
 
 variable "security_group_id" {

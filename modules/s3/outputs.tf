@@ -1,3 +1,3 @@
 output "bucket_id" {
-  value = aws_s3_bucket.s3_raw_bucket_wc.id
+  value = aws_s3_bucket.this.id
 }
