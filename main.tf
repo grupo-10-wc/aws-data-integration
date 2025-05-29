@@ -22,7 +22,7 @@ module "vpc" {
 module "security_group" {
   source        = "./modules/security_group"
   vpc_id        = module.vpc.vpc_id
-  name          = "ec2-sg"
+  name          = "sg_data_integration_ec2_wc"
   description   = "Grupo de segurança para EC2"
   ingress_rules = var.security_group_rules
   egress_rules  = []

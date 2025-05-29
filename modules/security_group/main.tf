@@ -1,4 +1,4 @@
-resource "aws_security_group" "this" {
+resource "aws_security_group" "sg_data_integration_wc" {
   name = var.name
   description = var.description
   vpc_id = var.vpc_id

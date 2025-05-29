@@ -1,4 +1,4 @@
-resource "aws_s3_bucket" "s3_bucket" {
+resource "aws_s3_bucket" "s3_raw_bucket_wc" {
   bucket = var.bucket_name
   tags = var.tags
 
@@ -7,7 +7,7 @@ resource "aws_s3_bucket" "s3_bucket" {
 }
 
 resource "aws_s3_bucket_public_access_block" "bucket_access_block" {
-  bucket = aws_s3_bucket.s3_bucket.id
+  bucket = aws_s3_bucket.s3_raw_bucket_wc.id
 
   block_public_acls = false
   block_public_policy = false

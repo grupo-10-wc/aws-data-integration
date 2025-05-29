@@ -1,4 +1,4 @@
-resource "aws_instance" "ec2-ec2_data_integration-wattech" {
+resource "aws_instance" "ec2_data_integration_wc" {
     ami = var.ami
     instance_type = var.instance_type
     key_name = var.key_name
