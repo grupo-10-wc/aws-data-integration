@@ -84,3 +84,7 @@ variable "security_group_rules" {
     cidr_blocks = list(string)
   }))
 }
+
+variable "apigateway_stage_name" {
+  
+}

@@ -55,3 +55,9 @@ module "s3_client" {
   bucket_name = var.s3_client_bucket_name
   tags        = var.s3_client_tags
 }
+
+module "apigateway" {
+  source     = "./modules/apigateway"
+  api_name   = "api-azure-aws-wc"
+  stage_name = var.apigateway_stage_name
+}
