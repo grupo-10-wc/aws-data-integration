@@ -86,5 +86,7 @@ variable "security_group_rules" {
 }
 
 variable "apigateway_stage_name" {
-  
+  description = "Nome de estágio de Deploy para a API Gateway"
+  type        = string
+  default     = "hmg"
 }
