@@ -1,5 +1,5 @@
 variable "region" {
-  description = "Região destino do deploy dos recursos"
+  description = "Regiao destino do deploy dos recursos"
   type        = string
   default     = "us-east-1"
 }
@@ -11,7 +11,7 @@ variable "vpc_cidr_block" {
 }
 
 variable "public_subnet_cidr_block" {
-  description = "Bloco CIDR para a subnet pública"
+  description = "Bloco CIDR para a subnet publica"
   type        = string
   default     = "10.0.0.0/24"
 }
@@ -23,18 +23,18 @@ variable "vpc_tags" {
 }
 
 variable "ec2_ami" {
-  description = "ID da AMI para a instância EC2"
+  description = "ID da AMI para a instancia EC2"
   type        = string
 }
 
 variable "ec2_instance_type" {
-  description = "Tipo da instância EC2"
+  description = "Tipo da instancia EC2"
   type        = string
   default     = "t2.micro"
 }
 
 variable "ec2_key_name" {
-  description = "Nome da Chave para a instância EC2"
+  description = "Nome da Chave para a instancia EC2"
   type        = string
 }
 
@@ -75,7 +75,7 @@ variable "s3_client_tags" {
 }
 
 variable "security_group_rules" {
-  description = "Lista de regras para grupos de segurança"
+  description = "Lista de regras para grupos de seguranca"
   type = list(object({
     description = string
     from_port   = number
@@ -86,7 +86,7 @@ variable "security_group_rules" {
 }
 
 variable "apigateway_stage_name" {
-  description = "Nome de estágio de Deploy para a API Gateway"
+  description = "Nome de estagio de Deploy para a API Gateway"
   type        = string
   default     = "hmg"
 }

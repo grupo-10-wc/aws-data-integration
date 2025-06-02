@@ -1,15 +1,15 @@
 variable "vpc_id" {
-  description = "ID da VPC onde o grupo de segurança será criado"
+  description = "ID da VPC onde o grupo de seguranca sera criado"
   type        = string
 }
 
 variable "name" {
-  description = "Nome do grupo de segurança"
+  description = "Nome do grupo de seguranca"
   type        = string
 }
 
 variable "description" {
-  description = "Descrição do grupo de segurança"
+  description = "Descricao do grupo de seguranca"
   type        = string
 }
 
@@ -24,7 +24,7 @@ variable "ingress_rules" {
 }
 
 variable "egress_rules" {
-  description = "Lista de regras de saída"
+  description = "Lista de regras de saida"
   type = list(object({
     from_port   = number,
     to_port     = number,
