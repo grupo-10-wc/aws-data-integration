@@ -32,7 +32,7 @@ module "ec2" {
   source            = "./modules/ec2"
   ami               = var.ec2_ami
   instance_type     = var.ec2_instance_type
-  key_name          = var.ec2_key_name
+  key_name          = aws_key_pair.wattech_key.key_name
   subnet_id         = module.vpc.public_subnet_id
   tags              = var.ec2_tags
   security_group_id = module.security_group.security_group_id
@@ -60,4 +60,9 @@ module "apigateway" {
   source     = "./modules/apigateway"
   api_name   = "api-azure-aws-wc"
   stage_name = var.apigateway_stage_name
+}
+
+resource "aws_key_pair" "wattech_key" {
+  key_name   = "wattech_key"
+  public_key = file("${path.module}/wattech_key.pub")
 }
