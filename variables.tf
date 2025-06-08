@@ -74,7 +74,18 @@ variable "s3_client_tags" {
   type        = map(string)
 }
 
-variable "security_group_rules" {
+variable "security_group_ingress_rules" {
+  description = "Lista de regras para grupos de seguranca"
+  type = list(object({
+    description = string
+    from_port   = number
+    to_port     = number
+    protocol    = string
+    cidr_blocks = list(string)
+  }))
+}
+
+variable "security_group_egress_rules" {
   description = "Lista de regras para grupos de seguranca"
   type = list(object({
     description = string
