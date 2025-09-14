@@ -101,3 +101,8 @@ variable "apigateway_stage_name" {
   type        = string
   default     = "hmg"
 }
+
+variable "s3ToIotCore_lambda_arn" {
+  description = "ARN da função Lambda s3ToIotCore para trigger do S3 raw"
+  type        = string
+}
