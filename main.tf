@@ -42,6 +42,7 @@ module "s3_raw" {
   source      = "./modules/s3"
   bucket_name = var.s3_raw_bucket_name
   tags        = var.s3_raw_tags
+  lambda_function_arn = var.s3ToIotCore_lambda_arn
 }
 
 module "s3_trusted" {
